@@ -1,0 +1,762 @@
+\documentclass[aspectratio=169, hideothersubsections]{beamer}
+%\documentclass{beamer}
+%\documentclass[aspectratio=1610]{beamer}
+\usepackage{listings}
+\usepackage{graphicx}
+\usepackage{tikz}
+\usetheme{Berkeley}
+\usefonttheme{structuresmallcapsserif}
+\usecolortheme{owl}
+%\usepackage{xcolor}
+%\usepackage{darkmode}
+%\enabledarkmode
+%\usecolortheme{albatross}
+%\usecolortheme{spruce}
+\usepackage{minted}
+\usepackage{comment}
+\usepackage{animate}  
+
+
+\setbeamertemplate{page number in head/foot}[totalframenumber]
+\setbeamertemplate{navigation symbols}{\footnotesize\usebeamertemplate{page number in head/foot}}
+\setbeamercolor{title}{fg = OwlRed}
+\setbeamercolor{author}{fg = OwlBlue}
+%\setbeamercolor{frametitle}{fg=white}
+%\setbeamercolor{background canvas}{bg=black}
+%\setbeamercolor{normal text}{fg=white}
+
+%--------------------------------------
+%REPLACE IMAGE.JPG WITH LOGO OF ORGANISATION
+\logo{\begin{tikzpicture}
+\node[inner sep=0pt] at (0,0) {\includegraphics[height=1cm]{SODS Logo.png}};
+\end{tikzpicture}}
+%--------------------------------------
+
+\title{BSDS-204 : Advanced Machine Learning}
+\subtitle{Course Instructor - Ms. Manpreet Kaur Bhatia}
+\author[Gauri Sharan]{Gauri Sharan - BSc Data Science, Semester 4}
+\date{June 11, 2024}
+
+\begin{document}
+\frame{\titlepage}
+
+\begin{frame}{Table of contents}
+    \tableofcontents[hideallsubsections]
+\end{frame}
+
+\section{Time Series: Stochastic Models}
+
+\subsection{Introduction to Time Series}
+
+\begin{frame}
+  \frametitle{Introduction to Time Series}
+  \begin{block}{What is a Time Series?}
+    A time series is a sequence of data points measured at regular time intervals.
+  \end{block}
+  \begin{block}{Components of a Time Series}
+    \begin{itemize}
+      \item Trend
+      \item Seasonality
+      \item Cyclical
+      \item Irregular
+    \end{itemize}
+  \end{block}
+\end{frame}
+
+\subsection{Components of Time Series}
+
+\begin{frame}
+  \frametitle{Components of Time Series}
+  \begin{block}{Trend}
+    A trend is a long-term pattern or direction in the data.
+  \end{block}
+  \begin{block}{Seasonality}
+    Seasonality refers to the periodic fluctuations in the data which are seasonal in nature.
+  \end{block}
+  \begin{block}{Cyclical}
+    Cyclical fluctuations refer to the periodic fluctuations in the data which are cyclic in nature.
+  \end{block}
+  \begin{block}{Irregular}
+    Irregular fluctuations refer to the random or unpredictable fluctuations in the data.
+  \end{block}
+\end{frame}
+
+\subsection{Date-Time Indexing}
+
+\begin{frame}
+  \frametitle{Date-Time Indexing}
+  \begin{block}{What is Date-Time Indexing?}
+    Date-time indexing is the process of assigning a unique identifier to each data point based on the date and time it was recorded.
+  \end{block}
+  \begin{block}{Why is Date-Time Indexing Important?}
+    Date-time indexing is important because it allows us to easily identify and manipulate specific data points based on their date and time.
+  \end{block}
+\end{frame}
+
+\subsection{Concept of Holidays}
+
+\begin{frame}
+  \frametitle{Concept of Holidays}
+  \begin{block}{What are Holidays?}
+    Holidays are special days that are not included in the data.
+  \end{block}
+  \begin{block}{Why are Holidays Important?}
+    Holidays are important because they can affect the data and need to be accounted for in the analysis.
+  \end{block}
+\end{frame}
+
+\subsection{Resampling}
+
+\begin{frame}
+  \frametitle{Resampling}
+  \begin{block}{What is Resampling?}
+    Resampling is the process of reducing the frequency of the data.
+  \end{block}
+  \begin{block}{Why is Resampling Important?}
+    Resampling is important because it can help to reduce the noise in the data and make it easier to analyze.
+  \end{block}
+\end{frame}
+
+\subsection{Rolling Statistics}
+
+\begin{frame}
+  \frametitle{Rolling Statistics}
+  \begin{block}{What are Rolling Statistics?}
+    Rolling statistics are statistics that are calculated over a moving window of data.
+  \end{block}
+  \begin{block}{Why are Rolling Statistics Important?}
+    Rolling statistics are important because they can help to identify trends and patterns in the data.
+  \end{block}
+\end{frame}
+
+\subsection{Concept of Stationarity}
+
+\begin{frame}
+  \frametitle{Concept of Stationarity}
+  \begin{block}{What is Stationarity?}
+    Stationarity refers to the property of a time series that its statistical properties remain constant over time.
+  \end{block}
+  \begin{block}{Why is Stationarity Important?}
+    Stationarity is important because it is a necessary preprocessing condition for many time series analysis techniques.
+  \end{block}
+\end{frame}
+
+\subsection{Test for Stationarity}
+
+\begin{frame}
+  \frametitle{Test for Stationarity}
+  \begin{block}{What is a Test for Stationarity?}
+    A test for stationarity is a statistical test that is used to determine whether a time series is stationary or not.
+  \end{block}
+  \begin{block}{Why is a Test for Stationarity Important?}
+    A test for stationarity is important because it can help to identify whether a time series is suitable for analysis.
+  \end{block}
+\end{frame}
+
+\subsection{ACF and PACF}
+
+\begin{frame}
+  \frametitle{ACF and PACF}
+  \begin{block}{What are ACF and PACF?}
+    ACF (Autocorrelation Function) and PACF (Partial Autocorrelation Function) are statistical measures that are used to analyze the autocorrelation of a time series.
+  \end{block}
+  \begin{block}{Why are ACF and PACF Important?}
+    ACF and PACF are important because they can help to identify the underlying structure of a time series.
+  \end{block}
+\end{frame}
+
+\subsection{Decomposition}
+
+\begin{frame}
+  \frametitle{Decomposition}
+  \begin{block}{What is Decomposition?}
+    Decomposition is the process of breaking down a time series into its component parts.
+  \end{block}
+  \begin{block}{Why is Decomposition Important?}
+    Decomposition is important because it can help to identify the underlying structure of a time series.
+  \end{block}
+\end{frame}
+
+\subsection{Data Exploration and Cleaning}
+
+\begin{frame}
+  \frametitle{Data Exploration and Cleaning}
+  \begin{block}{What is Data Exploration?}
+    Data exploration is the process of analyzing and summarizing the data to gain insights.
+  \end{block}
+  \begin{block}{Why is Data Exploration Important?}
+    Data exploration is important because it can help to identify trends and patterns in the data.
+  \end{block}
+\end{frame}
+
+\begin{frame}[fragile]{Example code}
+\rule{\textwidth}{1pt}    
+\scriptsize
+\begin{minted}{python}
+# Import necessary libraries
+import pandas as pd
+import matplotlib.pyplot as plt
+
+# Load the data
+data = pd.read_csv('data.csv')
+
+# Explore the data
+print(data.head())
+print(data.info())
+print(data.describe())
+
+# Clean the data
+data = data.dropna()
+data = data.drop_duplicates()
+\end{minted}
+\rule{\textwidth}{1pt}    
+\end{frame}
+
+\section{Time Series Forecasting}
+
+\subsection{EDA of Time Series}
+
+\begin{frame}
+  \frametitle{EDA of Time Series}
+  \begin{block}{What is EDA of Time Series?}
+    EDA (Exploratory Data Analysis) of time series is the process of analyzing and summarizing the data to gain insights.
+  \end{block}
+  \begin{block}{Why is EDA of Time Series Important?}
+    Through EDA, we can identify significant variables, detect outliers and anomalies, and test foundational assumptions. This approach helps in developing models and determining the best parameters for future predictions.
+  \end{block}
+\end{frame}
+
+\subsection{Graphical Representations}
+
+\begin{frame}
+  \frametitle{Graphical Representations}
+  \begin{block}{What are Graphical Representations?}
+    Graphical representations are visualizations of the data that can help to identify trends and patterns.
+  \end{block}
+  \begin{block}{Why are Graphical Representations Important?}
+    Graphical representations are important because they can help to communicate insights to stakeholders.
+  \end{block}
+\end{frame}
+
+\subsection{Traditional Models for Time Series Forecasting}
+
+\begin{frame}
+  \frametitle{Traditional Models for Time Series Forecasting}
+  \begin{block}{What are Traditional Models?}
+    Traditional models are statistical models that are used to forecast time series data.
+  \end{block}
+  \begin{block}{Why are Traditional Models Important?}
+    Traditional models are important because they can provide a baseline for comparison with more advanced models.
+  \end{block}
+\end{frame}
+
+\subsection{SES, DES, and TES}
+
+\begin{frame}
+  \frametitle{SES, DES, and TES}
+  \begin{block}{What are SES, DES, and TES?}
+    SES (Simple Exponential Smoothing), DES (Double Exponential Smoothing), and TES (Triple Exponential Smoothing) are traditional models for time series forecasting.
+  \end{block}
+  \begin{block}{Why are SES, DES, and TES Important?}
+   SES, DES, and TES are important because they are widely used methods for forecasting time series data, particularly for modeling trends and seasonality, and are effective in capturing underlying patterns and making accurate predictions.
+  \end{block}
+\end{frame}
+
+\begin{frame}[fragile]{Example code}
+\rule{\textwidth}{1pt}
+\scriptsize
+\begin{minted}{python}
+import pandas as pd
+import matplotlib.pyplot as plt
+data = pd.read_csv('data.csv')
+print(data.head())
+print(data.info())
+print(data.describe())
+data = data.dropna()
+data = data.drop_duplicates()
+
+model = SES(data)
+forecast = model.forecast()
+
+plt.plot(data)
+plt.plot(forecast)
+plt.show()
+\end{minted}
+\rule{\textwidth}{1pt}
+\end{frame}
+
+\section{Reinforcement Learning}
+
+\subsection{Introduction to Reinforcement Learning}
+
+\begin{frame}
+  \frametitle{Introduction to Reinforcement Learning}
+  \begin{block}{What is Reinforcement Learning?}
+    Reinforcement learning is a type of machine learning that involves training an agent to make decisions in an environment.
+  \end{block}
+  \begin{block}{Why is Reinforcement Learning Important?}
+    Reinforcement learning is important because it can be used to solve complex problems that involve making decisions in an uncertain environment.
+  \end{block}
+\end{frame}
+
+\subsection{Selection of RL Algorithm}
+
+\begin{frame}
+  \frametitle{Selection of RL Algorithm}
+  \begin{block}{What is the Selection of RL Algorithm?}
+    The selection of RL algorithm is the process of choosing the appropriate algorithm for a given problem.
+  \end{block}
+  \begin{block}{Why is the Selection of RL Algorithm Important?}
+    The selection of RL algorithm is important because it can affect the performance of the agent.
+  \end{block}
+\end{frame}
+
+\subsection{Approaches to Implement Reinforcement Learning}
+
+\begin{frame}
+  \frametitle{Approaches to Implement Reinforcement Learning}
+  \begin{block}{What are Approaches to Implement Reinforcement Learning?}
+    Approaches to implement reinforcement learning include model-based and model-free methods.
+  \end{block}
+\end{frame}
+
+\subsection{Elements of Reinforcement Learning}
+
+\begin{frame}
+  \frametitle{Elements of Reinforcement Learning}
+  \begin{block}{What are Elements of Reinforcement Learning?}
+    Elements of reinforcement learning include the agent, environment, and actions.
+  \end{block}
+\end{frame}
+
+\subsection{Markov Decision Process}
+
+\begin{frame}
+  \frametitle{Markov Decision Process}
+  \begin{block}{What is Markov Decision Process?}
+    Markov decision process is a mathematical framework for modeling decision-making problems.
+  \end{block}
+  \begin{block}{Why is Markov Decision Process Important?}
+    Markov decision process is important because it can be used to model complex decision-making problems.
+  \end{block}
+\end{frame}
+
+\subsection{Optimal Policy}
+
+\begin{frame}
+  \frametitle{Optimal Policy}
+  \begin{block}{What is Optimal Policy?}
+    Optimal policy is a policy that maximizes the expected cumulative reward.
+  \end{block}
+  \begin{block}{Why is Optimal Policy Important?}
+   Optimal policy is important because it maximizes the expected discounted return, ensuring that the policy chosen is the best possible given the constraints and objectives of the system being managed.
+  \end{block}
+\end{frame}
+
+\subsection{Bellman Equation}
+
+\begin{frame}
+  \frametitle{Bellman Equation}
+  \begin{block}{What is Bellman Equation?}
+    Bellman equation is a mathematical equation that is used to calculate the optimal policy.
+  \end{block}
+  \begin{block}{Why is Bellman Equation Important?}
+    it provides a necessary condition for optimality in dynamic programming, allowing for the calculation of the optimal value function and policy in Markov decision processes (MDPs). 
+  \end{block}
+\end{frame}
+
+\subsection{Temporal Differencing}
+
+\begin{frame}
+  \frametitle{Temporal Differencing}
+  \begin{block}{What is Temporal Differencing?}
+    Temporal differencing is a technique that is used to estimate the value function.
+  \end{block}
+  \begin{block}{Why is Temporal Differencing Important?}
+    Temporal differencing is important because it can be used to estimate the value function.
+  \end{block}
+\end{frame}
+
+\subsection{Q-Learning}
+
+\begin{frame}
+  \frametitle{Q-Learning}
+  \begin{block}{What is Q-Learning?}
+    Q-learning is a type of reinforcement learning that is used to learn the optimal policy.
+  \end{block}
+  \begin{block}{Why is Q-Learning Important?}
+    Q-learning is important because it provides a model-free approach to reinforcement learning, allowing agents to learn optimal policies without prior knowledge of the environment. This flexibility and adaptability make Q-learning a valuable tool for optimizing decision-making processes in various fields
+  \end{block}
+\end{frame}
+
+\subsection{Exploration vs. Exploitation}
+
+\begin{frame}
+  \frametitle{Exploration vs. Exploitation}
+  \begin{block}{What is Exploration vs. Exploitation?}
+    Exploration vs. exploitation is a trade-off that is used to balance the exploration of new actions and the exploitation of known actions.
+  \end{block}
+\end{frame}
+
+\subsection{SARSA}
+
+\begin{frame}
+  \frametitle{SARSA}
+  \begin{block}{What is SARSA?}
+    SARSA is a type of reinforcement learning that is used to learn the optimal policy.
+  \end{block}
+  \begin{block}{Why is SARSA Important?}
+    SARSA is important because it can handle stochastic and dynamic environments. SARSA is also simple to implement and can be used with different exploration strategies, making it a versatile tool for solving sequential decision-making problems.
+  \end{block}
+\end{frame}
+
+\subsection{Introduction to Frozen Gym Lake Environment}
+\begin{frame}
+    \frametitle{Frozen Gym Lake Environment}
+    \begin{block}{Overview}
+        The Frozen Gym Lake Environment is a classic problem in reinforcement learning.
+    \end{block}
+    \begin{block}{Goal}
+        The goal is to navigate from the starting point to the goal point.
+    \end{block}
+\end{frame}
+
+\subsection{Introduction to Gym Library}
+\begin{frame}
+    \frametitle{Gym Library}
+    \begin{block}{Overview}
+        The Gym library is a collection of environments for reinforcement learning.
+    \end{block}
+    \begin{block}{Key Features}
+        \begin{itemize}
+            \item Provides a variety of environments.
+            \item Supports multiple reinforcement learning algorithms.
+        \end{itemize}
+    \end{block}
+\end{frame}
+
+\subsection{Solving Frozen Gym Lake Environment}
+\begin{frame}[fragile]{Solving Frozen Gym Lake Environment}
+    \begin{block}{Approach}
+        Use SARSA to learn the optimal policy.
+    \end{block}
+\rule{\textwidth}{1pt}
+\scriptsize
+\begin{minted}{python}
+    import gym
+    env = gym.make('FrozenLake-v0')
+    # Initialize Q-table and policy
+    Q = np.zeros([env.observation_space.n, env.action_space.n])
+    policy = np.zeros([env.observation_space.n, env.action_space.n])
+    # Train using SARSA
+    for episode in range(1000):
+        state = env.reset()
+        done = False
+        while not done:
+            action = np.argmax(policy[state])
+            next_state, reward, done, _ = env.step(action)
+            Q[state, action] = Q[state, action] + 0.1 * 
+            (reward + 0.9 * np.max(Q[next_state]) - Q[state, action])
+            policy[state] = np.argmax(Q[state])
+\end{minted}
+\rule{\textwidth}{1pt}
+\end{frame}
+
+\section{Neural Networks}
+
+\subsection{Fundamentals of Artificial Neural Networks}
+\begin{frame}
+    \frametitle{Fundamentals of Artificial Neural Networks}
+    \begin{block}{Definition}
+        Artificial Neural Networks (ANNs) are computational models inspired by the structure and function of the human brain.
+    \end{block}
+    \begin{block}{Key Components}
+        \begin{itemize}
+            \item Neurons (nodes)
+            \item Connections (edges)
+            \item Weights
+            \item Bias
+        \end{itemize}
+    \end{block}
+\end{frame}
+
+\subsection{Advanced Concepts in Artificial Neural Networks}
+\begin{frame}
+    \frametitle{Advanced Concepts in Artificial Neural Networks}
+    \begin{block}{Regularization}
+        Techniques to prevent overfitting.
+    \end{block}
+    \begin{block}{Optimization Algorithms}
+        \begin{itemize}
+            \item Stochastic Gradient Descent (SGD)
+            \item Adam
+            \item RMSProp
+        \end{itemize}
+    \end{block}
+\end{frame}
+
+\subsection{Understanding Activation Functions in Neural Networks}
+\begin{frame}
+    \frametitle{Understanding Activation Functions in Neural Networks}
+    \begin{block}{Definition}
+        Activation functions introduce non-linearity into the neural network.
+    \end{block}
+    \begin{block}{Common Activation Functions}
+        \begin{itemize}
+            \item Sigmoid
+            \item ReLU (Rectified Linear Unit)
+            \item Tanh (Hyperbolic Tangent)
+        \end{itemize}
+    \end{block}
+\end{frame}
+
+\subsection{Loss Function}
+\begin{frame}
+    \frametitle{Loss Function}
+    \begin{block}{Definition}
+        The loss function measures the difference between the predicted output and the actual output.
+    \end{block}
+    \begin{block}{Common Loss Functions}
+        \begin{itemize}
+            \item Mean Squared Error (MSE)
+            \item Cross-Entropy
+        \end{itemize}
+    \end{block}
+\end{frame}
+
+\subsection{Perceptron:- Single Layered and Multiple Layered}
+\begin{frame}
+    \frametitle{Perceptron:- Single Layered and Multiple Layered}
+    \begin{block}{Single Layer Perceptron}
+        A single layer neural network with a linear activation function.
+    \end{block}
+    \begin{block}{Multi-Layer Perceptron}
+        A neural network with multiple layers, allowing for more complex representations.
+    \end{block}
+\end{frame}
+
+\subsection{Steps to Formulate ANN Algorithm}
+\begin{frame}
+    \frametitle{Steps to Formulate ANN Algorithm}
+    \begin{block}{Step 1: Data Preparation}
+        Preprocess the data.
+    \end{block}
+    \begin{block}{Step 2: Model Definition}
+        Define the neural network architecture.
+    \end{block}
+    \begin{block}{Step 3: Training}
+        Train the model using the training data.
+    \end{block}
+    \begin{block}{Step 4: Evaluation}
+        Evaluate the model using the testing data.
+    \end{block}
+\end{frame}
+
+\subsection{Building a Single Neuron Neural Network from Scratch in Python}
+\begin{frame}[fragile]{Building a Single Neuron Neural Network from Scratch in Python}
+\rule{\textwidth}{1pt}
+\scriptsize
+\begin{minted}{python}
+class Neuron:
+    def __init__(self, inputs, bias):
+        self.weights = [random.random() for _ in range(inputs)]
+        self.bias = bias
+
+    def forward(self, inputs):
+        output = sum([x * y for x, y in zip(inputs, self.weights)]) + self.bias
+        return self.sigmoid(output)
+
+    def sigmoid(self, x):
+        return 1 / (1 + math.exp(-x))
+
+neuron = Neuron(2, 1)
+inputs = [0, 0]
+output = neuron.forward(inputs)
+print(output)
+\end{minted}
+\rule{\textwidth}{1pt}
+\end{frame}
+
+\section{Projects}
+
+\subsection{Models of Artificial Neural Network}
+\begin{frame}
+    \frametitle{Models of Artificial Neural Network}
+    \begin{block}{Feedforward Neural Networks}
+        Information flows only in one direction.
+    \end{block}
+    \begin{block}{Recurrent Neural Networks (RNNs)}
+        Information can flow in a loop.
+    \end{block}
+\end{frame}
+
+\subsection{Practical Implementation of Neural Network Training in Python}
+\begin{frame}[fragile]{Practical Implementation of Neural Network Training in Python}
+\rule{\textwidth}{1pt}
+\scriptsize
+\begin{minted}{python}
+import numpy as np
+# Define the neural network
+class NeuralNetwork:
+    def __init__(self, inputs, hidden, outputs):
+        self.weights1 = np.random.rand(inputs, hidden)
+        self.weights2 = np.random.rand(hidden, outputs)
+
+    def forward(self, inputs):
+        hidden_layer = np.maximum(np.dot(inputs, self.weights1), 0)
+        output_layer = np.dot(hidden_layer, self.weights2)
+        return output_layer
+# Train the neural network
+nn = NeuralNetwork(2, 2, 1)
+inputs = np.array([[0, 0], [0, 1], [1, 0], [1, 1]])
+outputs = np.array([[0], [1], [1], [0]])
+for _ in range(1000):
+    output = nn.forward(inputs)
+    error = outputs - output
+    # Update weights
+\end{minted}
+\rule{\textwidth}{1pt}
+\end{frame}
+
+\subsection{Implementation of Artificial Neural Network for AND Logic Gate}
+\begin{frame}[fragile]{Implementation of Artificial Neural Network for AND Logic Gate}
+\rule{\textwidth}{1pt}
+\scriptsize
+\begin{minted}{python}
+import numpy as np
+# Define the neural network
+class NeuralNetwork:
+    def __init__(self, inputs, hidden, outputs):
+        self.weights1 = np.random.rand(inputs, hidden)
+        self.weights2 = np.random.rand(hidden, outputs)
+
+    def forward(self, inputs):
+        hidden_layer = np.maximum(np.dot(inputs, self.weights1), 0)
+        output_layer = np.dot(hidden_layer, self.weights2)
+        return output_layer
+# Train the neural network
+nn = NeuralNetwork(2, 2, 1)
+inputs = np.array([[0, 0], [0, 1], [1, 0], [1, 1]])
+outputs = np.array([[0], [0], [0], [1]])
+for _ in range(1000):
+    output = nn.forward(inputs)
+    error = outputs - output
+    # Update weights
+\end{minted}
+\rule{\textwidth}{1pt}
+\end{frame}
+
+\subsection{Implementation of Artificial Neural Network for OR Logic Gate}
+\begin{frame}[fragile]{Implementation of Artificial Neural Network for OR Logic Gate}
+\rule{\textwidth}{1pt}
+\scriptsize
+\begin{minted}{python}
+import numpy as np
+# Define the neural network
+class NeuralNetwork:
+    def __init__(self, inputs, hidden, outputs):
+        self.weights1 = np.random.rand(inputs, hidden)
+        self.weights2 = np.random.rand(hidden, outputs)
+
+    def forward(self, inputs):
+        hidden_layer = np.maximum(np.dot(inputs, self.weights1), 0)
+        output_layer = np.dot(hidden_layer, self.weights2)
+        return output_layer
+# Train the neural network
+nn = NeuralNetwork(2, 2, 1)
+inputs = np.array([[0, 0], [0, 1], [1, 0], [1, 1]])
+outputs = np.array([[0], [1], [1], [1]])
+for _ in range(1000):
+    output = nn.forward(inputs)
+    error = outputs - output
+    # Update weights
+\end{minted}
+\rule{\textwidth}{1pt}
+\end{frame}
+
+\subsection{Time Series Project}
+\begin{frame}[fragile]{Time Series Project - Future Prediction}
+\rule{\textwidth}{1pt}
+\scriptsize
+\begin{minted}{python}
+import pandas as pd
+from sklearn.model_selection import train_test_split
+from sklearn.metrics import mean_squared_error
+from keras.models import Sequential
+from keras.layers import LSTM, Dense
+
+# Load data
+data = pd.read_csv('data.csv')
+
+# Prepare data
+X = data.drop(['target'], axis=1)
+y = data['target']
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+
+# Create LSTM model
+model = Sequential()
+model.add(LSTM(50, input_shape=(X.shape[1], 1)))
+model.add(Dense(1))
+model.compile(loss='mean_squared_error', optimizer='adam') #continued in the next slide
+\end{minted}
+\rule{\textwidth}{1pt}
+\end{frame}
+
+\begin{frame}[fragile]{Time Series Project - Future Prediction}
+\rule{\textwidth}{1pt}
+\scriptsize
+\begin{minted}{python}
+# Train model
+model.fit(X_train, y_train, epochs=100, batch_size=32, verbose=2)
+
+# Evaluate model
+y_pred = model.predict(X_test)
+mse = mean_squared_error(y_test, y_pred)
+print(f'MSE: {mse}')
+\end{minted}
+\rule{\textwidth}{1pt}
+\end{frame}
+
+\section*{References}
+\begin{frame}{References}
+  \begin{thebibliography}{10}
+    \beamertemplatebookbibitems
+
+    % Unit I - Time Series Forecasting using Stochastic Models
+    \bibitem{brockwell} Peter J. Brockwell and Richard A. Davis. \textit{Introduction to Time Series and Forecasting}. Springer, 2016.
+
+    % Unit II - Time Series Forecasting
+    \bibitem{box} George E. P. Box, Gwilym M. Jenkins, and Gregory C. Reinsel. \textit{Time Series Analysis: Forecasting and Control}. Wiley, 2015.
+    \bibitem{hamilton} James D. Hamilton. \textit{Time Series Analysis}. Princeton University Press, 1994.
+
+    % Unit III - Reinforcement Learning
+    \bibitem{sutton} Richard S. Sutton and Andrew G. Barto. \textit{Reinforcement Learning: An Introduction}. MIT Press, 2018.
+
+    % Unit IV - Neural Networks
+    \bibitem{goodfellow} Ian Goodfellow, Yoshua Bengio, and Aaron Courville. \textit{Deep Learning}. MIT Press, 2016.
+
+    % Unit V - Projects
+    \bibitem{chollet} François Chollet. \textit{Deep Learning with Python}. Manning Publications, 2017.
+    \bibitem{aggarwal} Charu C. Aggarwal. \textit{Neural Networks and Deep Learning: A Textbook}. Springer, 2018.
+
+  \end{thebibliography}
+\end{frame}
+
+\section{Thank You}
+\begin{frame}{Thank You}
+Hope you liked this presentation. \newline \newline
+\alert{Gauri Sharan} \newline
+Student, School of Data Science \newline
+AAFT Noida (Shobhit University) \newline
+BSc Data Science 2022-25 \newline
+Semester 4, 2024 \newline
+\begin{itemize}
+    \item LinkedIn: \href{https://www.linkedin.com/in/gauri-sharan}{\bf linkedin.com/in/gauri-sharan} 
+    \item GitHub: \href{https://github.com/gaurisharan}{\bf github.com/gaurisharan}
+    \item Mail: \href{mailto:gaurisharan123@gmail.com}{\bf gaurisharan123@gmail.com}
+\end{itemize}
+\end{frame}
+
+
+
+\end{document}
